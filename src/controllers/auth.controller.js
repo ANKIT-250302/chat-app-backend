@@ -17,7 +17,7 @@ export async function signup(req,res){
         }
         const existingUser = await User.findOne({email});
         if (existingUser){
-            return res.status(400).json({message:"User already exist with this email, please use different email."})
+            return res.status(400).json({message:"Email already exist, use different email."})
         }
         const profilePic = "https://avatar.iran.liara.run/public"
         const newUser = await User.create({
