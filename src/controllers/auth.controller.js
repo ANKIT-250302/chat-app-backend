@@ -19,10 +19,12 @@ export async function signup(req,res){
         if (existingUser){
             return res.status(400).json({message:"Email already exist, use different email."})
         }
-        const profilePic = "https://avatar.iran.liara.run/public"
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        
+        const profilePic = `https://avatar.iran.liara.run/public/${randomNumber}.png`;
         const newUser = await User.create({
-            email,
-            fullName,
+            email:email.toLowerCase(),
+            fullName:fullName.charAt(0).toUpperCase() + fullName.slice(1),
             password,
             profilePic
         })
