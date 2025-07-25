@@ -88,7 +88,7 @@ export async function acceptFriendRequest(req, res) {
       return res.status(404).json({ message: "Recipient not found" });
     }
 
-    const friendRequest = await FriendRequest.findOne(rec_id);
+    const friendRequest = await FriendRequest.findById(rec_id);
 
     if (!friendRequest) {
       {
@@ -121,18 +121,19 @@ export async function acceptFriendRequest(req, res) {
 
 export async function getFriendRequests(req, res) {
   try {
-    const incommingRequest = await FriendRequest.find({
+    const incommingRequests = await FriendRequest.find({
       recipient: req.user.id,
       status: "pending",
     }).populate(
       "sender",
       "fullName profilePic nativeLanguage learningLanguage"
     );
-    const acceptedReqs = await FriendRequest.find({
-      sender: req.user.id,
-      status: "accepted",
+    const acceptedRequests = await FriendRequest.find({
+      recipient:req.user._id,
+      status:"accepted"
     }).populate("recipient", "fullName profilePic");
-    res.status(200).json(incommingRequest, acceptedReqs);
+    console.log("accepted:",acceptedRequests)
+    res.status(200).json({incommingRequests, acceptedRequests});
   } catch (error) {
     console.error("Error in getFriendRequests controller", error);
     res.status(500).json({ message: "Internal server error" });

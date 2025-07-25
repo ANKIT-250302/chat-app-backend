@@ -19,9 +19,9 @@ app.use(express.json())
 app.use(cookieParser())
 app.use("/api/auth",authRoutes)
 app.use("/api/users",userRoutes)
-app.use("/api.chat",chatRoutes)
+app.use("/api/chat",chatRoutes)
 
-app.listen(PORT, () => {
+app.listen(PORT,'0.0.0.0', () => {
   console.log(`Server is running at \nhttp://localhost:${ PORT }`);
   connectDB();
 });
