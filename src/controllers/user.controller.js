@@ -135,7 +135,7 @@ export async function getFriendRequests(req, res) {
     res.status(200).json(incommingRequest, acceptedReqs);
   } catch (error) {
     console.error("Error in getFriendRequests controller", error);
-    res.status(500), json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
